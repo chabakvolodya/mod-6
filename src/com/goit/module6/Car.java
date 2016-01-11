@@ -1,0 +1,90 @@
+package com.goit.module6;
+
+import com.goit.module6.Exception.*;
+
+/**
+ * Created by Администратор on 11.01.2016.
+ */
+public class Car {
+    private String name;
+    private Driver driver;
+    private Engine engine;
+    private int range;
+    private boolean driverGrafted;
+    private double gasoline;
+    private Category category;
+
+    public Car(String name, Category category) {
+        this.name = name;
+        this.category = category;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public void setDriverGrafted(boolean driverGrafted) {
+        this.driverGrafted = driverGrafted;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public boolean isDriverGrafted() {
+        return driverGrafted;
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+    public double getGasoline() {
+        return gasoline;
+    }
+
+    public void setGasoline(double gasoline) {
+        this.gasoline = gasoline;
+    }
+
+    public void go() throws EngineNotStartException{
+        try {
+            if (driver == null) throw new DriverNotFoundException();
+            if (engine == null) throw new EngineNotFoundException();
+            if (getGasoline() <= 0.0) throw new GasolineNotFoundException();
+            if (engine.isStatus() != true) throw new EngineNotStartException(engine.isStatus());
+            if (driver.getCategory() != category) throw new CategoryDriverNotEqualCategoryCar(category, driver.getCategory());
+            if (driverGrafted != true) throw new DriverNotGraftedException();
+
+            System.out.println("Автомобіль рушив!");
+
+        } catch (DriverNotFoundException e) {
+            System.err.println("Автомобіль не рушить без водія!");
+        } catch (EngineNotFoundException e) {
+            System.err.println("Автомобіль не рушить без двигуна!");
+        } catch (GasolineNotFoundException e) {
+            System.err.println("Автомобіль не рушить без бензину!");
+        } catch (CategoryDriverNotEqualCategoryCar e) {
+            System.err.println("Автомобіль не рушить!");
+            System.err.println("Категорія водія [" + e.getCategoryDriver() + "] не сумісна з категорією [" + e.getCategoryCar()+ "] у автомобіля!");
+        } catch (DriverNotGraftedException e) {
+            System.err.println("Автомобіль не рушить поки водій не пристегнут!");
+        }
+
+    }
+
+    public void stop(){
+        System.out.println("Автомобіль зупинився!");
+    }
+}
