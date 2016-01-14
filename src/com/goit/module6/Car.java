@@ -58,30 +58,14 @@ public class Car {
         this.gasoline = gasoline;
     }
 
-    public void go() throws EngineNotStartException{
-        try {
-            if (driver == null) throw new DriverNotFoundException();
-            if (engine == null) throw new EngineNotFoundException();
-            if (getGasoline() <= 0.0) throw new GasolineNotFoundException();
-            if (engine.isStatus() != true) throw new EngineNotStartException(engine.isStatus());
-            if (driver.getCategory() != category) throw new CategoryDriverNotEqualCategoryCar(category, driver.getCategory());
-            if (driverGrafted != true) throw new DriverNotGraftedException();
-
-            System.out.println("Автомобіль рушив!");
-
-        } catch (DriverNotFoundException e) {
-            System.err.println("Автомобіль не рушить без водія!");
-        } catch (EngineNotFoundException e) {
-            System.err.println("Автомобіль не рушить без двигуна!");
-        } catch (GasolineNotFoundException e) {
-            System.err.println("Автомобіль не рушить без бензину!");
-        } catch (CategoryDriverNotEqualCategoryCar e) {
-            System.err.println("Автомобіль не рушить!");
-            System.err.println("Категорія водія [" + e.getCategoryDriver() + "] не сумісна з категорією [" + e.getCategoryCar()+ "] у автомобіля!");
-        } catch (DriverNotGraftedException e) {
-            System.err.println("Автомобіль не рушить поки водій не пристегнут!");
-        }
-
+    public void go() throws CarException {
+        if (driver == null) throw new DriverNotFoundException();
+        if (engine == null) throw new EngineNotFoundException();
+        if (getGasoline() <= 0.0) throw new GasolineNotFoundException();
+        if (engine.isStatus() != true) throw new EngineNotStartException(engine.isStatus());
+        if (driver.getCategory() != category) throw new CategoryDriverNotEqualCategoryCar(category, driver.getCategory());
+        if (driverGrafted != true) throw new DriverNotGraftedException();
+        System.out.println("Автомобіль рушив!");
     }
 
     public void stop(){

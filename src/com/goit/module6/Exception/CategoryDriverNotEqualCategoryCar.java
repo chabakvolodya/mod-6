@@ -5,7 +5,7 @@ import com.goit.module6.Category;
 /**
  * Created by Администратор on 11.01.2016.
  */
-public class CategoryDriverNotEqualCategoryCar extends Exception {
+public class CategoryDriverNotEqualCategoryCar extends CarException {
     private Category categoryCar;
     private Category categoryDriver;
 
