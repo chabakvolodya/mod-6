@@ -21,22 +21,28 @@ public class Runner {
 
         try {
             car.go();
-        } catch (EngineNotStartException e) {
-            System.err.println("Автомобіль не може рушити так як двигун [ " + e.isStatus() + " ] не працює!");
-        } catch (DriverNotFoundException e) {
+        } catch (CarException e){
+            CarProcessException(e);
+        }
+
+//        car.stop();
+    }
+    private static void CarProcessException(CarException e){
+
+        if (e instanceof EngineNotStartException){
+            System.err.println("Автомобіль не може рушити так як двигун [ " + ((EngineNotStartException) e).isStatus() + " ] не працює!");
+        } else if (e instanceof DriverNotFoundException) {
             System.err.println("Автомобіль не рушить без водія!");
-        } catch (EngineNotFoundException e) {
+        } else if (e instanceof EngineNotFoundException) {
             System.err.println("Автомобіль не рушить без двигуна!");
-        } catch (GasolineNotFoundException e) {
+        } else if (e instanceof GasolineNotFoundException) {
             System.err.println("Автомобіль не рушить без бензину!");
-        } catch (CategoryDriverNotEqualCategoryCar e) {
+        } else if (e instanceof CategoryDriverNotEqualCategoryCar) {
             System.err.println("Автомобіль не рушить!");
-            System.err.println("Категорія водія [" + e.getCategoryDriver() + "] не сумісна з категорією [" + e.getCategoryCar()+ "] у автомобіля!");
-        } catch (DriverNotGraftedException e) {
+            System.err.println("Категорія водія [" + ((CategoryDriverNotEqualCategoryCar)e).getCategoryDriver() + "] не сумісна з категорією [" + ((CategoryDriverNotEqualCategoryCar)e).getCategoryCar()+ "] у автомобіля!");
+        } else if (e instanceof DriverNotGraftedException) {
             System.err.println("Автомобіль не рушить поки водій не пристегнут!");
         }
 
-
-//        car.stop();
     }
 }
